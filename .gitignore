@@ -1,0 +1,81 @@
+# KSP Multiplayer Setup Repository
+# This repo contains setup guides and documentation only
+# Exclude actual game files, saves, and large binaries
+
+# KSP Game Files (too large for git)
+*.app/
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.dat
+*.cache
+
+# Exclude actual mod files (users should download separately)
+GameData/Squad/
+GameData/SquadExpansion/
+GameData/BDArmory/
+GameData/DarkMultiPlayer/
+GameData/PhysicsRangeExtender/
+GameData/ModuleManager*.dll
+
+# KSP Runtime Files
+KSP.log
+KSP_*.log
+*.log
+output_log.txt
+Player.log
+Player-prev.log
+
+# Save Files & Screenshots
+saves/
+Screenshots/
+thumbs/
+@thumbs/
+
+# Server Files & Data
+DMPServer/
+Ships/
+Missions/
+
+# Cache & Temp Files
+PartDatabase.cfg
+ModuleManager.ConfigCache
+ModuleManager.ConfigSHA
+ModuleManager.Physics
+ModuleManager.TechTree
+*.tmp
+*.temp
+
+# Build/Compile Files
+*.pdb
+*.mdb
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Keep documentation and guides
+!*.md
+!*.txt
+!README*
+!SETUP*
+!MULTIPLAYER*
+!BDA-MULTIPLAYER*
+!QUICK-START*
+!TROUBLESHOOTING*
+
+# Keep setup scripts
+!start-server.sh
+!*.command
+
+# Keep our custom documentation
+!GameData/claude.md
+!GameData/tasks.md
+!GameData/backlog.md
+!GameData/ideas.md
+!GameData/BRAINSTORM_HYBRID_ROCKETS.md

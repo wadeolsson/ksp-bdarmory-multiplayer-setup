@@ -1,0 +1,52 @@
+╔══════════════════════════════════════════════════════════════╗
+║           KSP MULTIPLAYER - QUICK START GUIDE                ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ INSTALLATION COMPLETE!
+   DarkMultiPlayer v0.3.8.5 for KSP 1.12.5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎮 TO START PLAYING (3 SIMPLE STEPS):
+
+1️⃣  START THE SERVER (one person only)
+   Open Terminal and run:
+
+   cd "DMPServer"
+   ./start-server.sh
+
+   Keep this window open while playing!
+
+2️⃣  LAUNCH KSP (everyone)
+   Start Kerbal Space Program normally
+
+3️⃣  CONNECT (everyone)
+   - Click "DarkMultiPlayer" button on main menu
+   - Address: localhost  (or 127.0.0.1)
+   - Port: 6702
+   - Enter your name
+   - Click Connect!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 PLAYING ON SAME NETWORK (LAN)?
+
+   On server computer, find your IP:
+   ipconfig getifaddr en0
+
+   Other players use that IP instead of "localhost"
+   Example: 192.168.1.10
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 TIPS:
+   - Start with Sandbox mode for easiest setup
+   - Everyone needs identical mods (stock is best to start)
+   - Save often!
+   - Time warp works independently for each player
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 For detailed instructions, see MULTIPLAYER-SETUP.md
+
+Have fun! 🚀
