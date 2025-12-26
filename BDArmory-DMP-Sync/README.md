@@ -219,6 +219,6 @@ For issues and questions:
 
 ---
 
-**Version**: 1.0.0
+**Version**: 2.0.0
 **Compatible with**: KSP 1.12.5, DMP 0.3.8.5, BDA+ 1.12.0.0
 **Last Updated**: December 26, 2025
