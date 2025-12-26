@@ -306,7 +306,8 @@ namespace BDArmoryDMPSync
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 foreach (var assembly in assemblies)
                 {
-                    if (assembly.FullName.StartsWith("BahaTurret"))
+                    // BDArmory Plus uses "BDArmory", old versions used "BahaTurret"
+                    if (assembly.FullName.StartsWith("BDArmory") || assembly.FullName.StartsWith("BahaTurret"))
                         return true;
                 }
                 return false;
