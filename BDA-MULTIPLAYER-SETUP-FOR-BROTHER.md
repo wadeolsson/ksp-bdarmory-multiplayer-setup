@@ -18,15 +18,25 @@ For multiplayer to work, you need the **EXACT SAME MODS** as Wade. Here's the co
 2. Extract it
 3. Copy the `GameData/DarkMultiPlayer` folder to your `GameData/` folder
 
-### 3. BDArmory v0.11.0.1 ✅
+### 3. BDArmory Plus v1.12.0.0 ✅
 **What it does**: Weapons, combat, and dogfighting
-**Download**: Check SpaceDock or GitHub for this exact version
+**Download**: https://spacedock.info/mod/2487/BDArmory%20for%20Runway%20Project/download/1.12.0.0
 **Installation**: Copy `BDArmory` folder to your `GameData/` folder
 
 ### 4. Physics Range Extender v1.21.0 ✅
 **What it does**: Extends physics range so you can dogfight beyond 2.5km
 **Download**: https://github.com/jrodrigv/PhysicsRangeExtender/releases/tag/1.21.0
 **Installation**: Copy `PhysicsRangeExtender` folder to your `GameData/` folder
+
+### 5. BDArmory-DMP-Sync v1.0.0 ✅ **NEW!**
+**What it does**: Syncs building destruction, combat damage, and weapon fire in multiplayer
+**Download**: https://github.com/wadeolsson/ksp-bdarmory-multiplayer-setup/releases
+**Installation**:
+1. Download `BDArmoryDMPSync.zip`
+2. Extract it
+3. Copy `BDArmoryDMPSync` folder to your `GameData/` folder
+
+**Why you need this**: Without this plugin, building destruction and combat damage won't sync between players. With it, you'll see when your brother blows stuff up!
 
 ---
 

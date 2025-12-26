@@ -23,11 +23,15 @@ This repository contains all the documentation, guides, and setup instructions n
 2. **DarkMultiPlayer** v0.3.8.5
    - Download: https://d-mp.org/downloads
 
-3. **BDArmory** v0.11.0.1
-   - Download: Check SpaceDock or KSP Forums
+3. **BDArmory Plus** v1.12.0.0
+   - Download: https://spacedock.info/mod/2487/BDArmory%20for%20Runway%20Project/download/1.12.0.0
 
 4. **Physics Range Extender** v1.21.0
    - Download: https://github.com/jrodrigv/PhysicsRangeExtender/releases/tag/1.21.0
+
+5. **BDArmory-DMP-Sync** v1.0.0 🆕
+   - Download: https://github.com/wadeolsson/ksp-bdarmory-multiplayer-setup/releases
+   - **Essential!** Syncs building destruction, combat damage, and weapon fire
 
 ### Game Version:
 - **Kerbal Space Program 1.12.5**
