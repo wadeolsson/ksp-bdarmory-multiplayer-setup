@@ -71,10 +71,10 @@ namespace BDArmoryDMPSync
             // Register DMP message handlers
             try
             {
-                DMPModInterface.RegisterUpdateModHandler("BDABuilding", HandleBuildingMessage);
-                DMPModInterface.RegisterFixedUpdateModHandler("BDADamage", HandleDamageMessage);
-                DMPModInterface.RegisterUpdateModHandler("BDAWeapon", HandleWeaponMessage);
-                DMPModInterface.RegisterUpdateModHandler("BDAExplosion", HandleExplosionMessage);
+                DMPModInterface.RegisterUpdateModHandler("BDABuilding", new DMPModInterface.DMPMessageCallback(HandleBuildingMessage));
+                DMPModInterface.RegisterFixedUpdateModHandler("BDADamage", new DMPModInterface.DMPMessageCallback(HandleDamageMessage));
+                DMPModInterface.RegisterUpdateModHandler("BDAWeapon", new DMPModInterface.DMPMessageCallback(HandleWeaponMessage));
+                DMPModInterface.RegisterUpdateModHandler("BDAExplosion", new DMPModInterface.DMPMessageCallback(HandleExplosionMessage));
             }
             catch (Exception ex)
             {
@@ -180,7 +180,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.SendDMPModMessage("BDABuilding", data, relay: true, highPriority: true);
+            DMPModInterface.fetch.SendDMPModMessage("BDABuilding", data, true, true);
         }
 
         public void SendVesselDamage(VesselDamageMessage message)
@@ -189,7 +189,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.SendDMPModMessage("BDADamage", data, relay: true, highPriority: true);
+            DMPModInterface.fetch.SendDMPModMessage("BDADamage", data, true, true);
         }
 
         public void SendWeaponFire(WeaponFireMessage message)
@@ -198,7 +198,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.SendDMPModMessage("BDAWeapon", data, relay: true, highPriority: false);
+            DMPModInterface.fetch.SendDMPModMessage("BDAWeapon", data, true, false);
         }
 
         public void SendExplosion(ExplosionMessage message)
@@ -207,7 +207,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.SendDMPModMessage("BDAExplosion", data, relay: true, highPriority: true);
+            DMPModInterface.fetch.SendDMPModMessage("BDAExplosion", data, true, true);
         }
 
         #endregion

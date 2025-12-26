@@ -232,28 +232,9 @@ namespace BDArmoryDMPSync
                 }
 
                 // Alternative: Set animation state
-                var animationField = module.GetType().GetField("fireAnimation",
-                    BindingFlags.Public | BindingFlags.Instance);
-
-                if (animationField != null)
-                {
-                    string animName = animationField.GetValue(module) as string;
-                    if (!string.IsNullOrEmpty(animName))
-                    {
-                        Animation anim = module.part.FindModelAnimators(animName).FirstOrDefault();
-                        if (anim != null)
-                        {
-                            if (isFiring && !anim.isPlaying)
-                            {
-                                anim.Play(animName);
-                            }
-                            else if (!isFiring && anim.isPlaying)
-                            {
-                                anim.Stop(animName);
-                            }
-                        }
-                    }
-                }
+                // Note: Animation is in UnityEngine.AnimationModule which we don't reference
+                // For now, skip animation - visual updates will rely on UpdateVisualFire method
+                Debug.Log($"[BDArmoryDMPSync] Applied visual state (animation skipped): {isFiring}");
             }
             catch (Exception ex)
             {
