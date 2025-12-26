@@ -78,7 +78,7 @@ namespace BDArmoryDMPSync
                     DamageFraction = damageFraction
                 };
 
-                SimpleDMPIntegration.Instance?.SendBuildingDamage(message);
+                DMPIntegration.Instance?.SendBuildingDamage(message);
                 Debug.Log($"[BDArmoryDMPSync] Broadcasting building damage: {buildingId} = {damageFraction:F2}");
             }
             catch (Exception ex)

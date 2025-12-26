@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEngine;
 using DarkMultiPlayer;
 
@@ -16,6 +17,7 @@ namespace BDArmoryDMPSync
 
         private bool isInitialized = false;
         private string localPlayerName = "";
+        private object dmpModInterface = null;
 
         // Sync handlers
         private BuildingSyncModule buildingSync;
@@ -68,13 +70,36 @@ namespace BDArmoryDMPSync
 
             Debug.Log("[BDArmoryDMPSync] Registering DMP message handlers");
 
-            // Register DMP message handlers
+            // Get DMP interface using reflection
             try
             {
-                DMPModInterface.RegisterUpdateModHandler("BDABuilding", new DMPModInterface.DMPMessageCallback(HandleBuildingMessage));
-                DMPModInterface.RegisterFixedUpdateModHandler("BDADamage", new DMPModInterface.DMPMessageCallback(HandleDamageMessage));
-                DMPModInterface.RegisterUpdateModHandler("BDAWeapon", new DMPModInterface.DMPMessageCallback(HandleWeaponMessage));
-                DMPModInterface.RegisterUpdateModHandler("BDAExplosion", new DMPModInterface.DMPMessageCallback(HandleExplosionMessage));
+                var dmpType = Type.GetType("DarkMultiPlayer.DMPModInterface, DarkMultiPlayer");
+                if (dmpType == null)
+                {
+                    Debug.LogError("[BDArmoryDMPSync] DMPModInterface type not found");
+                    enabled = false;
+                    return;
+                }
+
+                // Try to get fetch property or instance
+                var fetchProp = dmpType.GetProperty("fetch", BindingFlags.Public | BindingFlags.Static);
+                if (fetchProp != null)
+                {
+                    dmpModInterface = fetchProp.GetValue(null);
+                }
+
+                if (dmpModInterface == null)
+                {
+                    Debug.LogError("[BDArmoryDMPSync] Could not get DMPModInterface instance");
+                    enabled = false;
+                    return;
+                }
+
+                // Register handlers using reflection
+                RegisterHandler("BDABuilding", HandleBuildingMessage, "RegisterUpdateModHandler");
+                RegisterHandler("BDADamage", HandleDamageMessage, "RegisterFixedUpdateModHandler");
+                RegisterHandler("BDAWeapon", HandleWeaponMessage, "RegisterUpdateModHandler");
+                RegisterHandler("BDAExplosion", HandleExplosionMessage, "RegisterUpdateModHandler");
             }
             catch (Exception ex)
             {
@@ -97,7 +122,7 @@ namespace BDArmoryDMPSync
 
         #region DMP Message Handlers
 
-        private void HandleBuildingMessage(string modName, byte[] data)
+        private void HandleBuildingMessage(byte[] data)
         {
             try
             {
@@ -115,7 +140,7 @@ namespace BDArmoryDMPSync
             }
         }
 
-        private void HandleDamageMessage(string modName, byte[] data)
+        private void HandleDamageMessage(byte[] data)
         {
             try
             {
@@ -133,7 +158,7 @@ namespace BDArmoryDMPSync
             }
         }
 
-        private void HandleWeaponMessage(string modName, byte[] data)
+        private void HandleWeaponMessage(byte[] data)
         {
             try
             {
@@ -151,7 +176,7 @@ namespace BDArmoryDMPSync
             }
         }
 
-        private void HandleExplosionMessage(string modName, byte[] data)
+        private void HandleExplosionMessage(byte[] data)
         {
             try
             {
@@ -180,7 +205,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.fetch.SendDMPModMessage("BDABuilding", data, true, true);
+            SendDMPMessage("BDABuilding", data, true, true);
         }
 
         public void SendVesselDamage(VesselDamageMessage message)
@@ -189,7 +214,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.fetch.SendDMPModMessage("BDADamage", data, true, true);
+            SendDMPMessage("BDADamage", data, true, true);
         }
 
         public void SendWeaponFire(WeaponFireMessage message)
@@ -198,7 +223,7 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.fetch.SendDMPModMessage("BDAWeapon", data, true, false);
+            SendDMPMessage("BDAWeapon", data, true, false);
         }
 
         public void SendExplosion(ExplosionMessage message)
@@ -207,12 +232,57 @@ namespace BDArmoryDMPSync
 
             message.PlayerName = localPlayerName;
             byte[] data = message.Serialize();
-            DMPModInterface.fetch.SendDMPModMessage("BDAExplosion", data, true, true);
+            SendDMPMessage("BDAExplosion", data, true, true);
         }
 
         #endregion
 
         #region Utility Methods
+
+        private void RegisterHandler(string modName, Action<byte[]> handler, string methodName)
+        {
+            try
+            {
+                var method = dmpModInterface.GetType().GetMethod(methodName);
+                if (method == null)
+                {
+                    Debug.LogWarning($"[BDArmoryDMPSync] Method {methodName} not found");
+                    return;
+                }
+
+                // Create delegate for the handler
+                var delegateType = method.GetParameters()[1].ParameterType;
+                var del = Delegate.CreateDelegate(delegateType, handler.Target, handler.Method);
+
+                method.Invoke(dmpModInterface, new object[] { modName, del });
+                Debug.Log($"[BDArmoryDMPSync] Registered {modName} via {methodName}");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[BDArmoryDMPSync] Failed to register {modName}: {ex}");
+            }
+        }
+
+        private void SendDMPMessage(string modName, byte[] data, bool relay, bool highPriority)
+        {
+            try
+            {
+                if (dmpModInterface == null) return;
+
+                var method = dmpModInterface.GetType().GetMethod("SendDMPModMessage");
+                if (method == null)
+                {
+                    Debug.LogWarning("[BDArmoryDMPSync] SendDMPModMessage method not found");
+                    return;
+                }
+
+                method.Invoke(dmpModInterface, new object[] { modName, data, relay, highPriority });
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[BDArmoryDMPSync] Failed to send message: {ex}");
+            }
+        }
 
         private bool IsDMPAvailable()
         {

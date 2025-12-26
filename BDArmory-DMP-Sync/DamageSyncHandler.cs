@@ -120,7 +120,7 @@ namespace BDArmoryDMPSync
 
                         // Check if part has taken damage (using maxTemp as proxy for damage)
                         // In reality, we'd hook into BDA's damage system via events
-                        float currentHealth = part.skinTemperature / part.skinMaxTemp;
+                        float currentHealth = (float)(part.skinTemperature / part.skinMaxTemp);
                         if (currentHealth > 0.5f) // Part is getting hot/damaged
                         {
                             // Part is damaged - queue damage message

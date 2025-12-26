@@ -3,7 +3,7 @@
     "URL": "https://github.com/wadeolsson/ksp-bdarmory-multiplayer-setup/raw/master/BDArmoryDMPSync.version",
     "DOWNLOAD": "https://github.com/wadeolsson/ksp-bdarmory-multiplayer-setup/releases/latest",
     "VERSION": {
-        "MAJOR": 1,
+        "MAJOR": 2,
         "MINOR": 0,
         "PATCH": 0,
         "BUILD": 0
